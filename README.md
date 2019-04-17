@@ -1,12 +1,12 @@
 # go-pluralize
 
-> Pluralize and singularize any word
+Pluralize and singularize any word
 
 # Acknowledgements
 > The go-pluralize module is the  Golang adaptation of the great work from [Blake Embrey](https://www.npmjs.com/~blakeembrey) and other contributors who created and maintain the NPM JavaScript [pluralize](https://www.npmjs.com/package/pluralize) package.
 > The originating Javascript implementation can be found on https://github.com/blakeembrey/pluralize
-
-Without their work
+> 
+> Without their great work this module would have taken a lot more effort, **thank you all**!
 
 
 # Version mapping
@@ -15,7 +15,7 @@ The latest go-pluralize version is compatible with [pluralize](https://www.npmjs
 
 | go-pluralize version  | NPM Pluralize Package version |
 | ------------- | ------------- |
-| 0.0.1 - Apr 17, 2019 #tbd-commit | 7.0.0 - Apr 14, 2019 [#8a989b7](https://github.com/blakeembrey/pluralize/commit/8a989b7dbe9ff145201be5af360c0694eadab5ff)  |
+| 0.0.1 - Apr 17, 2019 [tag](https://github.com/gertd/go-pluralize/tree/0.0.1) | 7.0.0 - Apr 14, 2019 [#8a989b7](https://github.com/blakeembrey/pluralize/commit/8a989b7dbe9ff145201be5af360c0694eadab5ff)  |
 
 # Installation
 
