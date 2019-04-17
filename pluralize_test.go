@@ -91,6 +91,58 @@ func TestIsSingular(t *testing.T) {
 	}
 }
 
+func TestNewPluralRule(t *testing.T) {
+
+	if Plural(`regex`) != `regexes` {
+		t.Fail()
+	}
+
+	AddPluralRule(`(?i)gex$`, `gexii`)
+
+	if Plural(`regex`) != `regexii` {
+		t.Fail()
+	}
+}
+
+func TestNewSingularRule(t *testing.T) {
+
+	if Singular(`singles`) != `single` {
+		t.Fail()
+	}
+
+	AddSingularRule(`(?i)singles$`, `singular`)
+
+	if Singular(`singles`) != `singular` {
+		t.Fail()
+	}
+}
+
+func TestNewIrregularRule(t *testing.T) {
+
+	if Plural(`irregular`) != `irregulars` {
+		t.Fail()
+	}
+
+	AddIrregularRule(`irregular`, `regular`)
+
+	if Plural(`irregular`) != `regular` {
+		t.Fail()
+	}
+}
+
+func TestNewUncountableRule(t *testing.T) {
+
+	if Plural(`paper`) != `papers` {
+		t.Fail()
+	}
+
+	AddUncountableRule(`paper`)
+
+	if Plural(`paper`) != `paper` {
+		t.Fail()
+	}
+}
+
 var BasicTests = []TestEntry{
 	// Uncountables.
 	{`firmware`, `firmware`},
