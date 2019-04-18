@@ -1,6 +1,7 @@
 package pluralize
 
 import (
+	"fmt"
 	"regexp"
 	"strconv"
 	"strings"
@@ -26,6 +27,22 @@ func init() {
 	loadPluralizationRules()
 	loadSingularizationRules()
 	loadUncountableRules()
+}
+
+// Pluralize -- Pluralize or singularize a word based on the passed in count
+func Pluralize(word string, count int, inclusive bool) string {
+
+	pluralized := func() func(string) string {
+		if count == 1 {
+			return Singular
+		} else {
+			return Plural
+		}
+	}
+	if inclusive {
+		return fmt.Sprintf("%d %s", count, pluralized()(word))
+	}
+	return pluralized()(word)
 }
 
 // Plural -- Pluralize a word

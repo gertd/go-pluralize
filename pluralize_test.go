@@ -143,6 +143,31 @@ func TestNewUncountableRule(t *testing.T) {
 	}
 }
 
+func TestPluralize(t *testing.T) {
+	if Pluralize(`test`, 0, false) != `tests` {
+		t.Fail()
+	}
+	if Pluralize(`test`, 0, false) != `tests` {
+		t.Fail()
+	}
+	if Pluralize(`test`, 1, false) != `test` {
+		t.Fail()
+	}
+	if Pluralize(`test`, 5, false) != `tests` {
+		t.Fail()
+	}
+	if Pluralize(`test`, 1, true) != `1 test` {
+		t.Fail()
+	}
+	if Pluralize(`test`, 5, true) != `5 tests` {
+		t.Fail()
+	}
+	if Pluralize(`蘋果`, 2, true) != `2 蘋果` {
+		t.Fail()
+	}
+
+}
+
 var BasicTests = []TestEntry{
 	// Uncountables.
 	{`firmware`, `firmware`},
