@@ -21,8 +21,6 @@ The latest go-pluralize version is compatible with [pluralize](https://www.npmjs
 
 # Installation
 
-Latest [release](https://github.com/gertd/go-pluralize/releases/latest)
-
 To install the go module:
 
     go get -u github.com/gertd/go-pluralize
