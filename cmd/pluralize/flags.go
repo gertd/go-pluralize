@@ -54,17 +54,17 @@ func (t TestCmd) String() string {
 
 // Set -- set flag
 func (t *TestCmd) Set(flag TestCmd) {
-	*t = *t | flag
+	*t |= flag
 }
 
 // Clear -- clear flag
 func (t *TestCmd) Clear(flag TestCmd) {
-	*t = *t &^ flag
+	*t &^= flag
 }
 
 // Toggle -- toggle flag state
 func (t *TestCmd) Toggle(flag TestCmd) {
-	*t = *t ^ flag
+	*t ^= flag
 }
 
 // Has -- is flag set?
