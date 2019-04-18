@@ -1,4 +1,7 @@
 # go-pluralize
+[![Build Status](https://travis-ci.org/gertd/go-pluralize.svg?branch=master)](https://travis-ci.org/gertd/go-pluralize) 
+[![Go Report Card](https://goreportcard.com/badge/github.com/gertd/go-pluralize)](https://goreportcard.com/report/github.com/gertd/go-pluralize) 
+[![GoDoc](https://godoc.org/github.com/gertd/go-pluralize?status.svg)](https://godoc.org/github.com/gertd/go-pluralize)
 
 Pluralize and singularize any word
 
@@ -8,16 +11,17 @@ Pluralize and singularize any word
 > 
 > Without their great work this module would have taken a lot more effort, **thank you all**!
 
-
 # Version mapping
 
 The latest go-pluralize version is compatible with [pluralize](https://www.npmjs.com/package/pluralize) version 7.0.0 commit [#8a989b7](https://github.com/blakeembrey/pluralize/commit/8a989b7dbe9ff145201be5af360c0694eadab5ff)
 
 | go-pluralize version  | NPM Pluralize Package version |
 | ------------- | ------------- |
-| 0.0.1 - Apr 17, 2019 [tag](https://github.com/gertd/go-pluralize/tree/0.0.1) | 7.0.0 - Apr 14, 2019 [#8a989b7](https://github.com/blakeembrey/pluralize/commit/8a989b7dbe9ff145201be5af360c0694eadab5ff)  |
+| 0.0.1 - Apr 17, 2019 [tag](https://github.com/gertd/go-pluralize/tree/v0.0.1) | 7.0.0 - Apr 14, 2019 [#8a989b7](https://github.com/blakeembrey/pluralize/commit/8a989b7dbe9ff145201be5af360c0694eadab5ff)  |
 
 # Installation
+
+Latest [release](https://github.com/gertd/go-pluralize/releases/latest)
 
 To install the go module:
 
@@ -26,6 +30,8 @@ To install the go module:
 To lock down a specific the version:
 
     go get -u github.com/gertd/go-pluralize@0.0.1
+
+Download the sources and binaries from the latest [release](https://github.com/gertd/go-pluralize/releases/latest)
 
 
 # Usage
