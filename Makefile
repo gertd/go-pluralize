@@ -42,8 +42,12 @@ OS = $(word 1, $@)
 .PHONY: all
 all: build test lint
 
+deps:
+	@echo "$(ATTN_COLOR)==> download dependencies $(NO_COLOR)"
+	@GO111MODULE=on go mod download
+
 .PHONY: build
-build:
+build: deps
 	@echo "$(ATTN_COLOR)==> build GOOS=$(GOOS) GOARCH=$(GOARCH) VERSION=$(VERSION)@$(COMMIT) $(NO_COLOR)"
 	@GOOS=$(GOOS) GOARCH=$(GOARCH) GO111MODULE=on go build $(LDFLAGS) -o $(BIN_DIR)/$(BINARY) ./cmd/pluralize
 
