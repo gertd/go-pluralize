@@ -7,25 +7,20 @@ import (
 	"runtime"
 
 	pluralize "github.com/gertd/go-pluralize"
+	"github.com/gertd/go-pluralize/cmd/pluralize/version"
 )
 
 const (
 	appName = "pluralize"
 )
 
-var (
-	version string
-	date    string
-	commit  string
-)
-
-var (
-	word        = flag.String("word", "", "input value")
-	cmd         = flag.String("cmd", "All", "command [All|IsPlural|IsSingular|Plural|Singular]")
-	showVersion = flag.Bool("version", false, "display version info")
-)
-
 func main() {
+
+	var (
+		word        = flag.String("word", "", "input value")
+		cmd         = flag.String("cmd", "All", "command [All|IsPlural|IsSingular|Plural|Singular]")
+		showVersion = flag.Bool("version", false, "display version info")
+	)
 
 	flag.Parse()
 
@@ -38,6 +33,13 @@ func main() {
 		fmt.Printf("-word not specified\n")
 		return
 	}
+
+	fmt.Println(TestCmdString("ALL"))
+	fmt.Println(TestCmdString("all"))
+	fmt.Println(TestCmdString("Plural"))
+	fmt.Println(TestCmdString("singular"))
+	fmt.Println(TestCmdString("isPlural"))
+	fmt.Println(TestCmdString("ISSingular"))
 
 	testCmd := TestCmdString(*cmd)
 	if testCmd.Has(TestCmdUnknown) {
@@ -60,11 +62,13 @@ func main() {
 }
 
 func displayVersionInfo(name string) {
+
+	vi := version.GetInfo()
 	fmt.Fprintf(os.Stdout, "%s - %s@%s [%s].[%s].[%s]\n",
 		name,
-		version,
-		commit,
-		date,
+		vi.Version,
+		vi.Commit,
+		vi.Date,
 		runtime.GOOS,
 		runtime.GOARCH,
 	)

@@ -2,6 +2,7 @@
 [![Build Status](https://travis-ci.org/gertd/go-pluralize.svg?branch=master)](https://travis-ci.org/gertd/go-pluralize) 
 [![Go Report Card](https://goreportcard.com/badge/github.com/gertd/go-pluralize)](https://goreportcard.com/report/github.com/gertd/go-pluralize) 
 [![GoDoc](https://godoc.org/github.com/gertd/go-pluralize?status.svg)](https://godoc.org/github.com/gertd/go-pluralize)
+[![BCH compliance](https://bettercodehub.com/edge/badge/gertd/go-pluralize?branch=master)](https://bettercodehub.com/)
 
 Pluralize and singularize any word
 
