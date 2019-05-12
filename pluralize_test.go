@@ -4,8 +4,9 @@ import (
 	"flag"
 	"fmt"
 	"os"
-	"strings"
 	"testing"
+
+	"github.com/gertd/go-pluralize/cmd/pluralize/tflags"
 )
 
 type TestEntry struct {
@@ -13,40 +14,40 @@ type TestEntry struct {
 	expected string
 }
 
-var word = flag.String("word", "", "input value")
-var cmd = flag.String("cmd", "all", "command name [optional]")
+var (
+	passLog bool
+	word    = flag.String("word", "", "input value")
+	cmd     = flag.String("cmd", "all", "command name [optional]")
+)
 
 func TestCmd(t *testing.T) {
 	if word == nil || len(*word) == 0 {
-		t.Logf("-args -word not specified, test skipped")
+		t.SkipNow()
 		return
 	}
 
-	input := *word
-	command := strings.ToLower(*cmd)
+	testCmd := tflags.TestCmdString(*cmd)
+
+	if testCmd.Has(tflags.TestCmdUnknown) {
+		t.Error(fmt.Errorf("unknown -cmd value %s, valid [All|IsPlural|IsSingular|Plural|Singular]", *cmd))
+		return
+	}
 
 	pluralize := NewClient()
 
-	switch command {
-	case ("ispural"):
-		t.Logf("IsPlural(%s) => %t", input, pluralize.IsPlural(input))
-	case "issingular":
-		t.Logf("IsSingular(%s) => %t", input, pluralize.IsSingular(input))
-	case "plural":
-		t.Logf("Plural(%s) => %s", input, pluralize.Plural(input))
-	case "singular":
-		t.Logf("Singular(%s) => %s", input, pluralize.Singular(input))
-	case "all":
-		t.Logf("IsPlural(%s) => %t", input, pluralize.IsPlural(input))
-		t.Logf("IsSingular(%s) => %t", input, pluralize.IsSingular(input))
-		t.Logf("Plural(%s) => %s", input, pluralize.Plural(input))
-		t.Logf("Singular(%s) => %s", input, pluralize.Singular(input))
-	default:
-		t.Logf("Undefined cmd [All|IsPlural|IsSingular|Plural|Singular]")
+	if testCmd.Has(tflags.TestCmdIsPlural) {
+		t.Logf("IsPlural(%s)   => %t\n", *word, pluralize.IsPlural(*word))
+	}
+	if testCmd.Has(tflags.TestCmdIsSingular) {
+		t.Logf("IsSingular(%s) => %t\n", *word, pluralize.IsSingular(*word))
+	}
+	if testCmd.Has(tflags.TestCmdPlural) {
+		t.Logf("Plural(%s)     => %s\n", *word, pluralize.Plural(*word))
+	}
+	if testCmd.Has(tflags.TestCmdSingular) {
+		t.Logf("Singular(%s)   => %s\n", *word, pluralize.Singular(*word))
 	}
 }
-
-var passLog bool
 
 func TestMain(m *testing.M) {
 	var passFlag = flag.Bool("pass", false, "log PASS results")
@@ -67,7 +68,8 @@ func plog(t *testing.T, format string, a ...interface{}) {
 }
 
 // slog -- Summary result log
-func slog(t *testing.T, format string, a ...interface{}) {
+func slog(_ *testing.T, format string, a ...interface{}) {
+
 	fmt.Fprintf(os.Stdout, format, a...)
 }
 
@@ -81,12 +83,12 @@ func TestIsPlural(t *testing.T) {
 
 	for i, testItem := range tests {
 		if actual := pluralize.IsPlural(testItem.expected); actual == true {
-			plog(t, "PASS test[%d] func %s(%s) expected %t, actual %t", i, "IsPlural", testItem.input, true, actual)
+			plog(t, "PASS test[%d] func %s(%s) expected %t, actual %t", i, "IsPlural",
+				testItem.input, true, actual)
 			passed++
 		} else {
 			t.Errorf("FAIL test[%d] func %s(%s) expected %t, actual %t", i, "IsPlural",
 				testItem.input, true, actual)
-
 			failed++
 		}
 	}
@@ -105,12 +107,12 @@ func TestIsSingular(t *testing.T) {
 
 	for i, testItem := range tests {
 		if actual := pluralize.IsSingular(testItem.input); actual == true {
-			plog(t, "PASS test[%d] func %s(%s) expected %t, actual %t", i, "IsSingular", testItem.input, true, actual)
+			plog(t, "PASS test[%d] func %s(%s) expected %t, actual %t", i, "IsSingular",
+				testItem.input, true, actual)
 			passed++
 		} else {
 			t.Errorf("FAIL test[%d] func %s(%s) expected %t, actual %t", i, "IsSingular",
 				testItem.input, true, actual)
-
 			failed++
 		}
 	}
@@ -130,12 +132,12 @@ func TestPlural(t *testing.T) {
 	for i, testItem := range tests {
 
 		if actual := pluralize.Plural(testItem.input); actual == testItem.expected {
-			plog(t, "PASS test[%d] func %s(%s) expected %s, actual %s", i, "Plural", testItem.input, testItem.expected, actual)
+			plog(t, "PASS test[%d] func %s(%s) expected %s, actual %s", i, "Plural",
+				testItem.input, testItem.expected, actual)
 			passed++
 		} else {
 			t.Errorf("FAIL test[%d] func %s(%s) expected %s, actual %s", i, "Plural",
 				testItem.input, testItem.expected, actual)
-
 			failed++
 		}
 
@@ -155,12 +157,12 @@ func TestSingular(t *testing.T) {
 
 	for i, testItem := range tests {
 		if actual := pluralize.Singular(testItem.expected); actual == testItem.input {
-			plog(t, "PASS test[%d] func %s(%s) expected %s, actual %s", i, "Singular", testItem.input, testItem.expected, actual)
+			plog(t, "PASS test[%d] func %s(%s) expected %s, actual %s", i, "Singular",
+				testItem.input, testItem.expected, actual)
 			passed++
 		} else {
 			t.Errorf("FAIL test[%d] func %s(%s) expected %s, actual %s", i, "Singular",
 				testItem.input, testItem.expected, actual)
-
 			failed++
 		}
 	}
@@ -231,24 +233,27 @@ func TestNewUncountableRule(t *testing.T) {
 
 func TestPluralize(t *testing.T) {
 
+	const test = "test"
+	const tests = "tests"
+
 	pluralize := NewClient()
 
-	if pluralize.Pluralize(`test`, 0, false) != `tests` {
+	if pluralize.Pluralize(test, 0, false) != tests {
 		t.Fail()
 	}
-	if pluralize.Pluralize(`test`, 0, false) != `tests` {
+	if pluralize.Pluralize(test, 0, false) != tests {
 		t.Fail()
 	}
-	if pluralize.Pluralize(`test`, 1, false) != `test` {
+	if pluralize.Pluralize(test, 1, false) != test {
 		t.Fail()
 	}
-	if pluralize.Pluralize(`test`, 5, false) != `tests` {
+	if pluralize.Pluralize(test, 5, false) != tests {
 		t.Fail()
 	}
-	if pluralize.Pluralize(`test`, 1, true) != `1 test` {
+	if pluralize.Pluralize(test, 1, true) != `1 test` {
 		t.Fail()
 	}
-	if pluralize.Pluralize(`test`, 5, true) != `5 tests` {
+	if pluralize.Pluralize(test, 5, true) != `5 tests` {
 		t.Fail()
 	}
 	if pluralize.Pluralize(`蘋果`, 2, true) != `2 蘋果` {
