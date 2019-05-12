@@ -32,7 +32,7 @@ VERSION:=`git describe --tags --dirty 2>/dev/null`
 COMMIT :=`git rev-parse --short HEAD 2>/dev/null`
 DATE   :=`date "+%FT%T%z"`
 
-LDFLAGS := -ldflags "-w -s -X main.version=${VERSION} -X main.date=${DATE} -X main.commit=${COMMIT}"
+LDFLAGS := -ldflags "-w -s -X github.com/gertd/go-pluralize/cmd/pluralize/version.version=${VERSION} -X github.com/gertd/go-pluralize/cmd/pluralize/version.date=${DATE} -X github.com/gertd/go-pluralize/cmd/pluralize/version.commit=${COMMIT}"
 
 BINARY := pluralize
 VERSION ?= vlatest
@@ -63,7 +63,7 @@ $(LINTER):
 .PHONY: lint
 lint: $(LINTER)
 	@echo "$(ATTN_COLOR)==> lint $(NO_COLOR)"
-	@$(LINTER) run
+	@$(LINTER) run --enable-all
 	@echo "$(NO_COLOR)\c"
 
 .PHONY: $(PLATFORMS)

@@ -316,7 +316,7 @@ func loadPluralizationRules() {
 		{`(?i)(alumn|alg|vertebr)(?:a|ae)$`, `$1ae`},
 		{`(?i)(seraph|cherub)(?:im)?$`, `$1im`},
 		{`(?i)(her|at|gr)o$`, `$1oes`},
-		{`(?i)(agend|addend|millenni|dat|extrem|bacteri|desiderat|strat|candelabr|errat|ov|symposi|curricul|automat|quor)(?:a|um)$`, `$1a`},
+		{`(?i)(agend|addend|millenni|dat|extrem|bacteri|desiderat|strat|candelabr|errat|ov|symposi|curricul|automat|quor)(?:a|um)$`, `$1a`}, //nolint:lll
 		{`(?i)(apheli|hyperbat|periheli|asyndet|noumen|phenomen|criteri|organ|prolegomen|hedr|automat)(?:a|on)$`, `$1a`},
 		{`(?i)sis$`, `ses`},
 		{`(?i)(?:(kni|wi|li)fe|(ar|l|ea|eo|oa|hoo)f)$`, `$1$2ves`},

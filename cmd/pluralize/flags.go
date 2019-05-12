@@ -28,28 +28,64 @@ const (
 )
 
 // testCmdID -- map enum to string
-var testCmdID = map[TestCmd]string{
-	TestCmdUnknown:    testCmdUnknown,
-	TestCmdIsPlural:   testCmdIsPlural,
-	TestCmdIsSingular: testCmdIsSingular,
-	TestCmdPlural:     testCmdPlural,
-	TestCmdSingular:   testCmdSingular,
-	TestCmdAll:        testCmdAll,
+func testCmdID(t TestCmd) string {
+
+	innerTestCmdID := map[TestCmd]string{
+
+		TestCmdUnknown:    testCmdUnknown,
+		TestCmdIsPlural:   testCmdIsPlural,
+		TestCmdIsSingular: testCmdIsSingular,
+		TestCmdPlural:     testCmdPlural,
+		TestCmdSingular:   testCmdSingular,
+		TestCmdAll:        testCmdAll,
+	}
+
+	return innerTestCmdID[t]
 }
 
 // testCmdName -- map string to enum
-var testCmdName = map[string]TestCmd{
-	strings.ToLower(testCmdUnknown):    TestCmdUnknown,
-	strings.ToLower(testCmdIsPlural):   TestCmdIsPlural,
-	strings.ToLower(testCmdIsSingular): TestCmdIsSingular,
-	strings.ToLower(testCmdPlural):     TestCmdPlural,
-	strings.ToLower(testCmdSingular):   TestCmdSingular,
-	strings.ToLower(testCmdAll):        TestCmdAll,
+// func testCmdName() map[string]TestCmd {
+
+// 	return map[string]TestCmd{
+// 		strings.ToLower(testCmdUnknown):    TestCmdUnknown,
+// 		strings.ToLower(testCmdIsPlural):   TestCmdIsPlural,
+// 		strings.ToLower(testCmdIsSingular): TestCmdIsSingular,
+// 		strings.ToLower(testCmdPlural):     TestCmdPlural,
+// 		strings.ToLower(testCmdSingular):   TestCmdSingular,
+// 		strings.ToLower(testCmdAll):        TestCmdAll,
+// 	}
+// }
+
+// testCmdName -- map string to enum value
+func testCmdName(s string) TestCmd {
+
+	f := func() func(s string) TestCmd {
+
+		innerTestCmdName := map[string]TestCmd{
+			strings.ToLower(testCmdUnknown):    TestCmdUnknown,
+			strings.ToLower(testCmdIsPlural):   TestCmdIsPlural,
+			strings.ToLower(testCmdIsSingular): TestCmdIsSingular,
+			strings.ToLower(testCmdPlural):     TestCmdPlural,
+			strings.ToLower(testCmdSingular):   TestCmdSingular,
+			strings.ToLower(testCmdAll):        TestCmdAll,
+		}
+
+		inner := func(s2 string) TestCmd {
+
+			if value, ok := innerTestCmdName[strings.ToLower(s2)]; ok {
+				return value
+			}
+			return TestCmdUnknown
+		}
+		return inner
+	}
+
+	return f()(s)
 }
 
 // String -- stringify TestCmd
 func (t TestCmd) String() string {
-	return testCmdID[t]
+	return testCmdID(t)
 }
 
 // Set -- set flag
@@ -74,8 +110,5 @@ func (t TestCmd) Has(flag TestCmd) bool {
 
 // TestCmdString -- convert string reprensentation in to enum value
 func TestCmdString(s string) TestCmd {
-	if value, ok := testCmdName[strings.ToLower(s)]; ok {
-		return value
-	}
-	return TestCmdUnknown
+	return testCmdName(s)
 }
