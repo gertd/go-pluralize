@@ -34,12 +34,7 @@ func main() {
 		return
 	}
 
-	fmt.Println(TestCmdString("ALL"))
-	fmt.Println(TestCmdString("all"))
-	fmt.Println(TestCmdString("Plural"))
-	fmt.Println(TestCmdString("singular"))
-	fmt.Println(TestCmdString("isPlural"))
-	fmt.Println(TestCmdString("ISSingular"))
+	pluralize := pluralize.NewClient()
 
 	testCmd := TestCmdString(*cmd)
 	if testCmd.Has(TestCmdUnknown) {
