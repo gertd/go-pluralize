@@ -14,63 +14,68 @@ type TestEntry struct {
 	expected string
 }
 
-var (
-	passLog bool
-	word    = flag.String("word", "", "input value")
-	cmd     = flag.String("cmd", "all", "command name [optional]")
-)
-
-func TestCmd(t *testing.T) {
-	if word == nil || len(*word) == 0 {
-		t.SkipNow()
-		return
-	}
-
-	testCmd := tflags.TestCmdString(*cmd)
-
-	if testCmd.Has(tflags.TestCmdUnknown) {
-		t.Error(fmt.Errorf("unknown -cmd value %s, valid [All|IsPlural|IsSingular|Plural|Singular]", *cmd))
-		return
-	}
-
-	pluralize := NewClient()
-
-	if testCmd.Has(tflags.TestCmdIsPlural) {
-		t.Logf("IsPlural(%s)   => %t\n", *word, pluralize.IsPlural(*word))
-	}
-	if testCmd.Has(tflags.TestCmdIsSingular) {
-		t.Logf("IsSingular(%s) => %t\n", *word, pluralize.IsSingular(*word))
-	}
-	if testCmd.Has(tflags.TestCmdPlural) {
-		t.Logf("Plural(%s)     => %s\n", *word, pluralize.Plural(*word))
-	}
-	if testCmd.Has(tflags.TestCmdSingular) {
-		t.Logf("Singular(%s)   => %s\n", *word, pluralize.Singular(*word))
-	}
+type params struct {
+	passLog *bool
+	word    *string
+	cmd     *string
 }
 
-func TestMain(m *testing.M) {
-	var passFlag = flag.Bool("pass", false, "log PASS results")
-	flag.Parse()
+var (
+	p params //nolint:gochecknoglobals
+)
 
-	if passFlag != nil && *passFlag {
-		passLog = true
-	}
+func TestMain(m *testing.M) {
+
+	p.passLog = flag.Bool("pass", false, "log PASS results")
+	p.word = flag.String("word", "", "input value")
+	p.cmd = flag.String("cmd", "all", "command name [optional]")
+
+	flag.Parse()
 
 	os.Exit(m.Run())
 }
 
 // plog -- PASSED result log
 func plog(t *testing.T, format string, a ...interface{}) {
-	if passLog {
+	if *p.passLog {
 		t.Logf(format, a...)
 	}
 }
 
 // slog -- Summary result log
-func slog(_ *testing.T, format string, a ...interface{}) {
+func slog(name string, passed int, failed int, total int) {
 
-	fmt.Fprintf(os.Stdout, format, a...)
+	fmt.Fprintf(os.Stdout, ">>> %s PASSED=%d FAILED=%d OF %d\n",
+		name, passed, failed, total)
+}
+
+func TestCmd(t *testing.T) {
+	if p.word == nil || len(*p.word) == 0 {
+		t.SkipNow()
+		return
+	}
+
+	testCmd := tflags.TestCmdString(*p.cmd)
+
+	if testCmd.Has(tflags.TestCmdUnknown) {
+		t.Error(fmt.Errorf("unknown -cmd value %s, valid [All|IsPlural|IsSingular|Plural|Singular]", *p.cmd))
+		return
+	}
+
+	pluralize := NewClient()
+
+	if testCmd.Has(tflags.TestCmdIsPlural) {
+		t.Logf("IsPlural(%s)   => %t\n", *p.word, pluralize.IsPlural(*p.word))
+	}
+	if testCmd.Has(tflags.TestCmdIsSingular) {
+		t.Logf("IsSingular(%s) => %t\n", *p.word, pluralize.IsSingular(*p.word))
+	}
+	if testCmd.Has(tflags.TestCmdPlural) {
+		t.Logf("Plural(%s)     => %s\n", *p.word, pluralize.Plural(*p.word))
+	}
+	if testCmd.Has(tflags.TestCmdSingular) {
+		t.Logf("Singular(%s)   => %s\n", *p.word, pluralize.Singular(*p.word))
+	}
 }
 
 func TestIsPlural(t *testing.T) {
@@ -93,8 +98,7 @@ func TestIsPlural(t *testing.T) {
 		}
 	}
 
-	slog(t, ">>> %s PASSED=%d FAILED=%d OF %d\n", "TestIsPlural",
-		passed, failed, len(tests))
+	slog("TestIsPlural", passed, failed, len(tests))
 }
 
 func TestIsSingular(t *testing.T) {
@@ -117,8 +121,7 @@ func TestIsSingular(t *testing.T) {
 		}
 	}
 
-	slog(t, ">>> %s PASSED=%d FAILED=%d OF %d\n", "TestIsSingular",
-		passed, failed, len(tests))
+	slog("TestIsSingular", passed, failed, len(tests))
 }
 
 func TestPlural(t *testing.T) {
@@ -143,8 +146,7 @@ func TestPlural(t *testing.T) {
 
 	}
 
-	slog(t, ">>> %s PASSED=%d FAILED=%d OF %d\n", "TestPlural",
-		passed, failed, len(tests))
+	slog("TestPlural", passed, failed, len(tests))
 }
 
 func TestSingular(t *testing.T) {
@@ -167,8 +169,7 @@ func TestSingular(t *testing.T) {
 		}
 	}
 
-	slog(t, ">>> %s PASSED=%d FAILED=%d OF %d\n", "TestSingular",
-		passed, failed, len(tests))
+	slog("TestSingular", passed, failed, len(tests))
 }
 
 func TestNewPluralRule(t *testing.T) {

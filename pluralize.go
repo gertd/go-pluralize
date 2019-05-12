@@ -114,7 +114,7 @@ func (c *Client) AddIrregularRule(single string, plural string) {
 	c.irregularPlurals[p] = s
 }
 
-func (c *Client) replaceWord(replaceMap map[string]string, keepMap map[string]string, rules []Rule) func(w string) string {
+func (c *Client) replaceWord(replaceMap map[string]string, keepMap map[string]string, rules []Rule) func(w string) string { //nolint:lll
 
 	f := func(word string) string {
 

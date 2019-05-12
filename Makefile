@@ -35,7 +35,6 @@ DATE   :=`date "+%FT%T%z"`
 LDFLAGS := -ldflags "-w -s -X github.com/gertd/go-pluralize/cmd/pluralize/version.version=${VERSION} -X github.com/gertd/go-pluralize/cmd/pluralize/version.date=${DATE} -X github.com/gertd/go-pluralize/cmd/pluralize/version.commit=${COMMIT}"
 
 BINARY := pluralize
-VERSION ?= vlatest
 PLATFORMS := windows linux darwin
 OS = $(word 1, $@)
 
@@ -48,7 +47,7 @@ deps:
 
 .PHONY: build
 build: deps
-	@echo "$(ATTN_COLOR)==> build GOOS=$(GOOS) GOARCH=$(GOARCH) VERSION=$(VERSION)@$(COMMIT) $(NO_COLOR)"
+	@echo "$(ATTN_COLOR)==> build GOOS=$(GOOS) GOARCH=$(GOARCH) VERSION=$(VERSION) COMMIT=$(COMMIT) DATE=$(DATE) $(NO_COLOR)"
 	@GOOS=$(GOOS) GOARCH=$(GOARCH) GO111MODULE=on go build $(LDFLAGS) -o $(BIN_DIR)/$(BINARY) ./cmd/pluralize
 
 .PHONY: test
@@ -68,7 +67,7 @@ lint: $(LINTER)
 
 .PHONY: $(PLATFORMS)
 $(PLATFORMS):
-	@echo "$(ATTN_COLOR)==> release GOOS=$(GOOS) GOARCH=$(GOARCH) release/$(BINARY)-$(OS)-$(GOARCH) $(NO_COLOR)"
+	@echo "$(ATTN_COLOR)==> release GOOS=$(OS) GOARCH=$(GOARCH) release/$(BINARY)-$(OS)-$(GOARCH) $(NO_COLOR)"
 	@mkdir -p release
 	@GOOS=$(OS) GOARCH=$(GOARCH) GO111MODULE=on go build $(LDFLAGS) -o release/$(BINARY)-$(OS)-$(GOARCH)$(if $(findstring $(OS),windows),".exe","")  ./cmd/pluralize
 
