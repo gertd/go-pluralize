@@ -47,6 +47,9 @@ func (c *Client) init() {
 }
 
 // Pluralize -- Pluralize or singularize a word based on the passed in count
+// 	word: the word to pluralize
+// 	count: how many of the word exist
+// 	inclusive: whether to prefix with the number (e.g. 3 ducks)
 func (c *Client) Pluralize(word string, count int, inclusive bool) string {
 
 	pluralized := func() func(string) string {
@@ -225,7 +228,12 @@ func restoreCase(word string, token string) string {
 		return token
 	}
 
-	// Upper cased words. E.g. "HELLO".
+	// Lower cased words. E.g. "hello".
+	if word == strings.ToLower(word) {
+		return strings.ToLower(token)
+	}
+
+	// Upper cased words. E.g. "WHISKY".
 	if word == strings.ToUpper(word) {
 		return strings.ToUpper(token)
 	}
@@ -300,7 +308,6 @@ func (c *Client) loadIrregularRules() {
 		{`thief`, `thieves`},
 		{`groove`, `grooves`},
 		{`pickaxe`, `pickaxes`},
-		{`whiskey`, `whiskies`},
 		{`passerby`, `passersby`},
 	}
 	for _, r := range irregularRules {
@@ -361,7 +368,7 @@ func (c *Client) loadSingularizationRules() {
 		{`(?i)\b((?:tit)?m|l)ice$`, `$1ouse`},
 		{`(?i)(seraph|cherub)im$`, `$1`},
 		{`(?i)(x|ch|ss|sh|zz|tto|go|cho|alias|[^aou]us|t[lm]as|gas|(?:her|at|gr)o|[aeiou]ris)(?:es)?$`, `$1`},
-		{`(?i)(analy|ba|diagno|parenthe|progno|synop|the|empha|cri|ne)(?:sis|ses)$`, `$1sis`},
+		{`(?i)(analy|diagno|parenthe|progno|synop|the|empha|cri|ne)(?:sis|ses)$`, `$1sis`},
 		{`(?i)(movie|twelve|abuse|e[mn]u)s$`, `$1`},
 		{`(?i)(test)(?:is|es)$`, `$1is`},
 		{`(?i)(alumn|syllab|vir|radi|nucle|fung|cact|stimul|termin|bacill|foc|uter|loc|strat)(?:us|i)$`, `$1us`},
@@ -447,6 +454,7 @@ func (c *Client) loadUncountableRules() {
 		`manga`,
 		`news`,
 		`only`,
+		`personnel`,
 		`pike`,
 		`plankton`,
 		`pliers`,
@@ -478,6 +486,7 @@ func (c *Client) loadUncountableRules() {
 		`wildlife`,
 		`you`,
 		// Regexes.
+		`(?i)pok[eé]mon$`,  //
 		`(?i)[^aeiou]ese$`, // "chinese", "japanese"
 		`(?i)deer$`,        // "deer", "reindeer"
 		`(?i)(fish)$`,      // "fish", "blowfish", "angelfish"

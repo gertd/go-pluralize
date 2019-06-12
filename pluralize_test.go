@@ -700,7 +700,8 @@ func basicTests() []TestEntry {
 		{`honey`, `honeys`},
 		{`smiley`, `smilies`},
 		{`survey`, `surveys`},
-		{`whiskey`, `whiskies`},
+		{`whiskey`, `whiskeys`},
+		{`whisky`, `whiskies`},
 		{`volley`, `volleys`},
 		{`tongue`, `tongues`},
 		{`suit`, `suits`},
@@ -854,12 +855,18 @@ func basicTests() []TestEntry {
 		{`crispness`, `crispnesses`},
 		{`racehorse`, `racehorses`},
 		{`greatness`, `greatnesses`},
+		{`demon`, `demons`},
+		{`lemon`, `lemons`},
+		{`pokemon`, `pokemon`},
+		{`pokémon`, `pokémon`},
 		{`christmas`, `christmases`},
 		{`zymase`, `zymases`},
 		{`accomplice`, `accomplices`},
 		{`amice`, `amices`},
 		{`titmouse`, `titmice`},
 		{`slice`, `slices`},
+		{`base`, `bases`},
+		{`database`, `databases`},
 		// Prototype inheritance.
 		{`constructor`, `constructors`},
 		// Non-standard case.
@@ -873,6 +880,10 @@ func basicTests() []TestEntry {
 		{`中文`, `中文`},
 		{`اللغة العربية`, `اللغة العربية`},
 		{`四 chicken`, `四 chickens`},
+		{`Order2`, `Order2s`},
+		{`Work Order2`, `Work Order2s`},
+		{`SoundFX2`, `SoundFX2s`},
+		{`oDonald`, `oDonalds`},
 	}
 }
 
@@ -892,11 +903,12 @@ func singularTests() []TestEntry {
 // Odd singular to plural tests.
 func pluralTests() []TestEntry {
 	return []TestEntry{
-		{`whisky`, `whiskies`},
 		{`plateaux`, `plateaux`},
 		{`axis`, `axes`},
+		{`basis`, `bases`},
 		{`automatum`, `automata`},
 		{`thou`, `you`},
+		{`axiS`, `axes`},
 		{`passerby`, `passersby`},
 	}
 }
