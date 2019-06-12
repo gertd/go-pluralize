@@ -102,5 +102,3 @@ Download the sources and binaries from the latest [release](https://github.com/g
 ### Word Make Singular
     pluralize -word Cacti -cmd Singular
 	Singular(Cacti)    => Cactus
-
-
