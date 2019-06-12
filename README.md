@@ -14,12 +14,11 @@ Pluralize and singularize any word
 
 # Version mapping
 
-The latest go-pluralize version is compatible with [pluralize](https://www.npmjs.com/package/pluralize) version 7.0.0 commit [#8a989b7](https://github.com/blakeembrey/pluralize/commit/8a989b7dbe9ff145201be5af360c0694eadab5ff)
+The latest go-pluralize version is compatible with [pluralize](https://www.npmjs.com/package/pluralize) version 8.0.0 commit [#0265e4d](https://github.com/blakeembrey/pluralize/commit/0265e4d131ecad8e11c420fa4be98b75dc92c33d)
 
 | go-pluralize version  | NPM Pluralize Package version |
 | ------------- | ------------- |
-| 0.0.1 - Apr 17, 2019 [v0.0.1](https://github.com/gertd/go-pluralize/tree/v0.0.1) | 7.0.0 - Apr 14, 2019 [#8a989b7](https://github.com/blakeembrey/pluralize/commit/8a989b7dbe9ff145201be5af360c0694eadab5ff)  |
-| 0.0.2 - Jun 12, 2019 [v0.0.2]() | 8.0.0 - May 24, 2019 [#0265e4d](https://github.com/blakeembrey/pluralize/commit/0265e4d131ecad8e11c420fa4be98b75dc92c33d)
+| 0.1.0 - Jun 12, 2019 [v0.1.0](https://github.com/gertd/go-pluralize/tree/v0.1.0) | 8.0.0 - May 24, 2019 [#0265e4d](https://github.com/blakeembrey/pluralize/commit/0265e4d131ecad8e11c420fa4be98b75dc92c33d)
 
 # Installation
 
@@ -29,7 +28,7 @@ To install the go module:
 
 To lock down a specific the version:
 
-    go get -u github.com/gertd/go-pluralize@0.0.2
+    go get -u github.com/gertd/go-pluralize@0.1.0
 
 Download the sources and binaries from the latest [release](https://github.com/gertd/go-pluralize/releases/latest)
 
@@ -75,13 +74,9 @@ Download the sources and binaries from the latest [release](https://github.com/g
       -word string
             input value
 
-
-### Version
-	pluralize -version
-    pluralize - v0.0.2-dirty@2fda4a2 [2019-06-12T16:32:17-0700].[linux].[amd64]
-
 ### Word with All Commands
     pluralize -word Empire 
+
 	IsPlural(Empire)   => false
 	IsSingular(Empire) => true
 	Plural(Empire)     => Empires
@@ -89,16 +84,20 @@ Download the sources and binaries from the latest [release](https://github.com/g
 
 ### Is Word Plural?
     pluralize -word Cactus -cmd IsPlural
+
 	IsPlural(Cactus)   => false
     
 ### Is Word Singular?
     pluralize -word Cacti -cmd IsSingular
+
     IsSingular(Cacti)  => false
     
 ### Word Make Plural
     pluralize -word Cactus -cmd Plural
+
 	Plural(Cactus)     => Cacti
     
 ### Word Make Singular
     pluralize -word Cacti -cmd Singular
+
 	Singular(Cacti)    => Cactus
