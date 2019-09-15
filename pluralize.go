@@ -364,7 +364,7 @@ func (c *Client) loadSingularizationRules() {
 		{`(?i)(ar|(?:wo|[ae])l|[eo][ao])ves$`, `$1f`},
 		{`(?i)ies$`, `y`},
 		{`(?i)(dg|ss|ois|lk|ok|wn|mb|th|ch|ec|oal|is|ec|ck|ix|sser|ts|wb)ies$`, `$1ie`},
-		{`(?i)\b(l|(?:neck|cross|hog|aun)?t|coll|faer|food|gen|goon|group|hipp|junk|vegg|(?:pork)?p|charl|calor|cut)ies$`, `$1ie`},
+		{`(?i)\b(l|(?:neck|cross|hog|aun)?t|coll|faer|food|gen|goon|group|hipp|junk|vegg|(?:pork)?p|charl|calor|cut)ies$`, `$1ie`}, //nolint:lll
 		{`(?i)\b(mon|smil)ies$`, `$1ey`},
 		{`(?i)\b((?:tit)?m|l)ice$`, `$1ouse`},
 		{`(?i)(seraph|cherub)im$`, `$1`},
