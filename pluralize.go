@@ -309,6 +309,7 @@ func (c *Client) loadIrregularRules() {
 		{`groove`, `grooves`},
 		{`pickaxe`, `pickaxes`},
 		{`passerby`, `passersby`},
+		{`sms`, `sms`},
 	}
 	for _, r := range irregularRules {
 		c.AddIrregularRule(r.single, r.plural)
