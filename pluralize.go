@@ -309,6 +309,7 @@ func (c *Client) loadIrregularRules() {
 		{`groove`, `grooves`},
 		{`pickaxe`, `pickaxes`},
 		{`passerby`, `passersby`},
+		{`sms`, `sms`},
 	}
 	for _, r := range irregularRules {
 		c.AddIrregularRule(r.single, r.plural)
@@ -363,7 +364,8 @@ func (c *Client) loadSingularizationRules() {
 		{`(?i)(wi|kni|(?:after|half|high|low|mid|non|night|[^\w]|^)li)ves$`, `$1fe`},
 		{`(?i)(ar|(?:wo|[ae])l|[eo][ao])ves$`, `$1f`},
 		{`(?i)ies$`, `y`},
-		{`(?i)\b([pl]|zomb|(?:neck|cross)?t|coll|faer|food|gen|goon|group|lass|talk|goal|cut)ies$`, `$1ie`},
+		{`(?i)(dg|ss|ois|lk|ok|wn|mb|th|ch|ec|oal|is|ec|ck|ix|sser|ts|wb)ies$`, `$1ie`},
+		{`(?i)\b(l|(?:neck|cross|hog|aun)?t|coll|faer|food|gen|goon|group|hipp|junk|vegg|(?:pork)?p|charl|calor|cut)ies$`, `$1ie`}, //nolint:lll
 		{`(?i)\b(mon|smil)ies$`, `$1ey`},
 		{`(?i)\b((?:tit)?m|l)ice$`, `$1ouse`},
 		{`(?i)(seraph|cherub)im$`, `$1`},
@@ -471,7 +473,6 @@ func (c *Client) loadUncountableRules() {
 		`shambles`,
 		`shrimp`,
 		`software`,
-		`species`,
 		`staff`,
 		`swine`,
 		`tennis`,
