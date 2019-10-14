@@ -25,7 +25,6 @@ var (
 )
 
 func TestMain(m *testing.M) {
-
 	p.passLog = flag.Bool("pass", false, "log PASS results")
 	p.word = flag.String("word", "", "input value")
 	p.cmd = flag.String("cmd", "all", "command name [optional]")
@@ -44,7 +43,6 @@ func plog(t *testing.T, format string, a ...interface{}) {
 
 // slog -- Summary result log
 func slog(name string, passed int, failed int, total int) {
-
 	fmt.Fprintf(os.Stdout, ">>> %s PASSED=%d FAILED=%d OF %d\n",
 		name, passed, failed, total)
 }
@@ -67,19 +65,21 @@ func TestCmd(t *testing.T) {
 	if testCmd.Has(tflags.TestCmdIsPlural) {
 		t.Logf("IsPlural(%s)   => %t\n", *p.word, pluralize.IsPlural(*p.word))
 	}
+
 	if testCmd.Has(tflags.TestCmdIsSingular) {
 		t.Logf("IsSingular(%s) => %t\n", *p.word, pluralize.IsSingular(*p.word))
 	}
+
 	if testCmd.Has(tflags.TestCmdPlural) {
 		t.Logf("Plural(%s)     => %s\n", *p.word, pluralize.Plural(*p.word))
 	}
+
 	if testCmd.Has(tflags.TestCmdSingular) {
 		t.Logf("Singular(%s)   => %s\n", *p.word, pluralize.Singular(*p.word))
 	}
 }
 
 func TestIsPlural(t *testing.T) {
-
 	tests := append(basicTests(), pluralTests()...)
 	passed := 0
 	failed := 0
@@ -102,7 +102,6 @@ func TestIsPlural(t *testing.T) {
 }
 
 func TestIsSingular(t *testing.T) {
-
 	tests := append(basicTests(), singularTests()...)
 	passed := 0
 	failed := 0
@@ -125,7 +124,6 @@ func TestIsSingular(t *testing.T) {
 }
 
 func TestPlural(t *testing.T) {
-
 	tests := append(basicTests(), pluralTests()...)
 	passed := 0
 	failed := 0
@@ -133,7 +131,6 @@ func TestPlural(t *testing.T) {
 	pluralize := NewClient()
 
 	for i, testItem := range tests {
-
 		if actual := pluralize.Plural(testItem.input); actual == testItem.expected {
 			plog(t, "PASS test[%d] func %s(%s) expected %s, actual %s", i, "Plural",
 				testItem.input, testItem.expected, actual)
@@ -143,14 +140,12 @@ func TestPlural(t *testing.T) {
 				testItem.input, testItem.expected, actual)
 			failed++
 		}
-
 	}
 
 	slog("TestPlural", passed, failed, len(tests))
 }
 
 func TestSingular(t *testing.T) {
-
 	tests := append(basicTests(), singularTests()...)
 	passed := 0
 	failed := 0
@@ -173,7 +168,6 @@ func TestSingular(t *testing.T) {
 }
 
 func TestNewPluralRule(t *testing.T) {
-
 	pluralize := NewClient()
 
 	if pluralize.Plural(`regex`) != `regexes` {
@@ -188,7 +182,6 @@ func TestNewPluralRule(t *testing.T) {
 }
 
 func TestNewSingularRule(t *testing.T) {
-
 	pluralize := NewClient()
 
 	if pluralize.Singular(`singles`) != `single` {
@@ -203,7 +196,6 @@ func TestNewSingularRule(t *testing.T) {
 }
 
 func TestNewIrregularRule(t *testing.T) {
-
 	pluralize := NewClient()
 
 	if pluralize.Plural(`irregular`) != `irregulars` {
@@ -218,7 +210,6 @@ func TestNewIrregularRule(t *testing.T) {
 }
 
 func TestNewUncountableRule(t *testing.T) {
-
 	pluralize := NewClient()
 
 	if pluralize.Plural(`paper`) != `papers` {
@@ -233,37 +224,44 @@ func TestNewUncountableRule(t *testing.T) {
 }
 
 func TestPluralize(t *testing.T) {
-
-	const test = "test"
-	const tests = "tests"
+	const (
+		test  = "test"
+		tests = "tests"
+	)
 
 	pluralize := NewClient()
 
 	if pluralize.Pluralize(test, 0, false) != tests {
 		t.Fail()
 	}
+
 	if pluralize.Pluralize(test, 0, false) != tests {
 		t.Fail()
 	}
+
 	if pluralize.Pluralize(test, 1, false) != test {
 		t.Fail()
 	}
+
 	if pluralize.Pluralize(test, 5, false) != tests {
 		t.Fail()
 	}
+
 	if pluralize.Pluralize(test, 1, true) != `1 test` {
 		t.Fail()
 	}
+
 	if pluralize.Pluralize(test, 5, true) != `5 tests` {
 		t.Fail()
 	}
+
 	if pluralize.Pluralize(`蘋果`, 2, true) != `2 蘋果` {
 		t.Fail()
 	}
 }
 
 // Basic test cases of singular - plural pairs
-func basicTests() []TestEntry {
+func basicTests() []TestEntry { //nolint:funlen
 	return []TestEntry{
 		// Uncountables.
 		{`firmware`, `firmware`},
@@ -344,7 +342,8 @@ func basicTests() []TestEntry {
 		{`crowbar`, `crowbars`},
 		{`van`, `vans`},
 		{`tobacco`, `tobaccos`},
-		{`afficionado`, `afficionados`},
+		{`aficionado`, `aficionados`},
+		{`afficionado`, `afficionados`}, //nolint:misspell
 		{`monkey`, `monkeys`},
 		{`neutrino`, `neutrinos`},
 		{`rhino`, `rhinos`},

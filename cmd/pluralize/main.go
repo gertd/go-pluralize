@@ -16,7 +16,6 @@ const (
 )
 
 func main() {
-
 	var (
 		word        = flag.String("word", "", "input value")
 		cmd         = flag.String("cmd", "All", "command [All|IsPlural|IsSingular|Plural|Singular]")
@@ -46,19 +45,21 @@ func main() {
 	if testCmd.Has(tflags.TestCmdIsPlural) {
 		fmt.Printf("IsPlural(%s)   => %t\n", *word, pluralize.IsPlural(*word))
 	}
+
 	if testCmd.Has(tflags.TestCmdIsSingular) {
 		fmt.Printf("IsSingular(%s) => %t\n", *word, pluralize.IsSingular(*word))
 	}
+
 	if testCmd.Has(tflags.TestCmdPlural) {
 		fmt.Printf("Plural(%s)     => %s\n", *word, pluralize.Plural(*word))
 	}
+
 	if testCmd.Has(tflags.TestCmdSingular) {
 		fmt.Printf("Singular(%s)   => %s\n", *word, pluralize.Singular(*word))
 	}
 }
 
 func displayVersionInfo(name string) {
-
 	vi := version.GetInfo()
 	fmt.Fprintf(os.Stdout, "%s - %s@%s [%s].[%s].[%s]\n",
 		name,

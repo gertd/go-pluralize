@@ -29,7 +29,6 @@ const (
 
 // testCmdID -- map enum to string
 func testCmdID(t TestCmd) string {
-
 	innerTestCmdID := map[TestCmd]string{
 
 		TestCmdUnknown:    testCmdUnknown,
@@ -58,9 +57,7 @@ func testCmdID(t TestCmd) string {
 
 // testCmdName -- map string to enum value
 func testCmdName(s string) TestCmd {
-
 	f := func() func(s string) TestCmd {
-
 		innerTestCmdName := map[string]TestCmd{
 			strings.ToLower(testCmdUnknown):    TestCmdUnknown,
 			strings.ToLower(testCmdIsPlural):   TestCmdIsPlural,
@@ -71,12 +68,13 @@ func testCmdName(s string) TestCmd {
 		}
 
 		inner := func(s2 string) TestCmd {
-
 			if value, ok := innerTestCmdName[strings.ToLower(s2)]; ok {
 				return value
 			}
+
 			return TestCmdUnknown
 		}
+
 		return inner
 	}
 

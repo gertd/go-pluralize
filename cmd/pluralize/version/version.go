@@ -16,7 +16,6 @@ type Info struct {
 
 // GetInfo - get version stamp information
 func GetInfo() Info {
-
 	return Info{
 		Version: version,
 		Date:    date,

@@ -1,3 +1,5 @@
+SHELL 	   := $(shell which bash)
+
 # text reset
 NO_COLOR=\033[0m
 # green
@@ -12,7 +14,8 @@ ATTN_COLOR=\033[33;01m
 ROOT_DIR := $(git rev-parse --show-toplevel)
 BIN_DIR  := ./bin
 
-LINTER := $(BIN_DIR)/golangci-lint
+LINTER     := $(BIN_DIR)/golangci-lint
+LINTVERSION:= v1.20.0
 TESTRUNNER := $(GOPATH)/bin/gotestsum
 
 GOOS :=
@@ -33,7 +36,8 @@ VERSION:=`git describe --tags --dirty 2>/dev/null`
 COMMIT :=`git rev-parse --short HEAD 2>/dev/null`
 DATE   :=`date "+%FT%T%z"`
 
-LDFLAGS := -ldflags "-w -s -X github.com/gertd/go-pluralize/cmd/pluralize/version.version=${VERSION} -X github.com/gertd/go-pluralize/cmd/pluralize/version.date=${DATE} -X github.com/gertd/go-pluralize/cmd/pluralize/version.commit=${COMMIT}"
+LDBASE     := github.com/gertd/$(PROJECT)/cmd/pluralize
+LDFLAGS    := -ldflags "-w -s -X $(LDBASE)/cmd.version=${VERSION} -X $(LDBASE)/cmd.date=${DATE} -X $(LDBASE)/cmd.commit=${COMMIT}"
 
 BINARY := pluralize
 PLATFORMS := windows linux darwin
@@ -62,7 +66,7 @@ test: $(TESTRUNNER)
 
 $(LINTER):
 	@echo -e "$(ATTN_COLOR)==> get  $(NO_COLOR)"
-	@curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh -s v1.15.0
+	@curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh -s $(LINTVERSION)
  
 .PHONY: lint
 lint: $(LINTER)
@@ -83,3 +87,14 @@ release: windows linux darwin
 install:
 	@echo -e "$(ATTN_COLOR)==> install $(NO_COLOR)"
 	@GOOS=$(GOOS) GOARCH=$(GOARCH) GO111MODULE=on go install $(LDFLAGS) ./cmd/pluralize
+
+.PHONY: clean
+clean:
+	@echo -e "$(ATTN_COLOR)==> clean $(NO_COLOR)"
+	@rm -rf $(BIN_DIR)
+	@rm -rf $(REL_DIR)
+
+.PHONY: gen
+gen: deps
+	@echo -e "$(ATTN_COLOR)==> generate $(NO_COLOR)"
+	@go generate ./...
