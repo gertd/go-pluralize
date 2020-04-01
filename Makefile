@@ -65,7 +65,7 @@ test: $(TESTRUNNER)
 	@gotestsum --format short-verbose
 
 $(LINTER):
-	@echo -e "$(ATTN_COLOR)==> get  $(NO_COLOR)"
+	@echo -e "$(ATTN_COLOR)==> get linter $(NO_COLOR)"
 	@curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh -s $(LINTVERSION)
  
 .PHONY: lint
