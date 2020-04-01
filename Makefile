@@ -15,7 +15,7 @@ ROOT_DIR := $(git rev-parse --show-toplevel)
 BIN_DIR  := ./bin
 
 LINTER     := $(BIN_DIR)/golangci-lint
-LINTVERSION:= v1.20.0
+LINTVERSION:= v1.24.0
 TESTRUNNER := $(GOPATH)/bin/gotestsum
 
 GOOS :=
@@ -32,12 +32,12 @@ else
 endif
 GOARCH ?= amd64
 
-VERSION:=`git describe --tags --dirty 2>/dev/null`
-COMMIT :=`git rev-parse --short HEAD 2>/dev/null`
-DATE   :=`date "+%FT%T%z"`
+VERSION    :=`git describe --tags 2>/dev/null`
+COMMIT     :=`git rev-parse --short HEAD 2>/dev/null`
+DATE       :=`date "+%FT%T%z"`
 
-LDBASE     := github.com/gertd/$(PROJECT)/cmd/pluralize
-LDFLAGS    := -ldflags "-w -s -X $(LDBASE)/cmd.version=${VERSION} -X $(LDBASE)/cmd.date=${DATE} -X $(LDBASE)/cmd.commit=${COMMIT}"
+LDBASE     := github.com/gertd/go-pluralize/pkg/version
+LDFLAGS    := -ldflags "-w -s -X $(LDBASE).version=${VERSION} -X $(LDBASE).date=${DATE} -X $(LDBASE).commit=${COMMIT}"
 
 BINARY := pluralize
 PLATFORMS := windows linux darwin

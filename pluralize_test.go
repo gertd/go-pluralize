@@ -6,7 +6,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/gertd/go-pluralize/cmd/pluralize/tflags"
+	"github.com/gertd/go-pluralize/pkg/tflags"
 )
 
 type TestEntry struct {
@@ -34,8 +34,8 @@ func TestMain(m *testing.M) {
 	os.Exit(m.Run())
 }
 
-// plog -- PASSED result log
-func plog(t *testing.T, format string, a ...interface{}) {
+// plogf -- PASSED result log
+func plogf(t *testing.T, format string, a ...interface{}) {
 	if *p.passLog {
 		t.Logf(format, a...)
 	}
@@ -88,7 +88,7 @@ func TestIsPlural(t *testing.T) {
 
 	for i, testItem := range tests {
 		if actual := pluralize.IsPlural(testItem.expected); actual == true {
-			plog(t, "PASS test[%d] func %s(%s) expected %t, actual %t", i, "IsPlural",
+			plogf(t, "PASS test[%d] func %s(%s) expected %t, actual %t", i, "IsPlural",
 				testItem.input, true, actual)
 			passed++
 		} else {
@@ -110,7 +110,7 @@ func TestIsSingular(t *testing.T) {
 
 	for i, testItem := range tests {
 		if actual := pluralize.IsSingular(testItem.input); actual == true {
-			plog(t, "PASS test[%d] func %s(%s) expected %t, actual %t", i, "IsSingular",
+			plogf(t, "PASS test[%d] func %s(%s) expected %t, actual %t", i, "IsSingular",
 				testItem.input, true, actual)
 			passed++
 		} else {
@@ -132,7 +132,7 @@ func TestPlural(t *testing.T) {
 
 	for i, testItem := range tests {
 		if actual := pluralize.Plural(testItem.input); actual == testItem.expected {
-			plog(t, "PASS test[%d] func %s(%s) expected %s, actual %s", i, "Plural",
+			plogf(t, "PASS test[%d] func %s(%s) expected %s, actual %s", i, "Plural",
 				testItem.input, testItem.expected, actual)
 			passed++
 		} else {
@@ -154,7 +154,7 @@ func TestSingular(t *testing.T) {
 
 	for i, testItem := range tests {
 		if actual := pluralize.Singular(testItem.expected); actual == testItem.input {
-			plog(t, "PASS test[%d] func %s(%s) expected %s, actual %s", i, "Singular",
+			plogf(t, "PASS test[%d] func %s(%s) expected %s, actual %s", i, "Singular",
 				testItem.input, testItem.expected, actual)
 			passed++
 		} else {

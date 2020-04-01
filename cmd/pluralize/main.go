@@ -4,11 +4,10 @@ import (
 	"flag"
 	"fmt"
 	"os"
-	"runtime"
 
 	pluralize "github.com/gertd/go-pluralize"
-	"github.com/gertd/go-pluralize/cmd/pluralize/tflags"
-	"github.com/gertd/go-pluralize/cmd/pluralize/version"
+	"github.com/gertd/go-pluralize/pkg/tflags"
+	"github.com/gertd/go-pluralize/pkg/version"
 )
 
 const (
@@ -60,13 +59,8 @@ func main() {
 }
 
 func displayVersionInfo(name string) {
-	vi := version.GetInfo()
-	fmt.Fprintf(os.Stdout, "%s - %s@%s [%s].[%s].[%s]\n",
+	fmt.Fprintf(os.Stdout, "%s - %s\n",
 		name,
-		vi.Version,
-		vi.Commit,
-		vi.Date,
-		runtime.GOOS,
-		runtime.GOARCH,
+		version.GetInfo(),
 	)
 }

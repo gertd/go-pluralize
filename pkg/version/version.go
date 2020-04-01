@@ -1,5 +1,10 @@
 package version
 
+import (
+	"fmt"
+	"runtime"
+)
+
 // package global var, value set by linker using ldflag -X
 var (
 	version string //nolint:gochecknoglobals
@@ -21,4 +26,14 @@ func GetInfo() Info {
 		Date:    date,
 		Commit:  commit,
 	}
+}
+
+func (vi Info) String() string {
+	return fmt.Sprintf("%s #%s-%s-%s [%s]",
+		vi.Version,
+		vi.Commit,
+		runtime.GOOS,
+		runtime.GOARCH,
+		vi.Date,
+	)
 }
