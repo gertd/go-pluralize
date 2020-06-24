@@ -17,6 +17,7 @@ The latest go-pluralize version is compatible with [pluralize](https://www.npmjs
 
 | go-pluralize version  | NPM Pluralize Package version |
 | ------------- | ------------- |
+| 0.1.7 - Jun 23, 2020 [v0.1.7](https://github.com/gertd/go-pluralize/releases/tag/v0.1.6) | 8.0.0 - Mar 14, 2020 [#e507706](https://github.com/blakeembrey/pluralize/commit/e507706be779612c06ebfd6043163e063e791d79)
 | 0.1.6 - Jun 23, 2020 [v0.1.6](https://github.com/gertd/go-pluralize/releases/tag/v0.1.6) | 8.0.0 - Mar 14, 2020 [#e507706](https://github.com/blakeembrey/pluralize/commit/e507706be779612c06ebfd6043163e063e791d79)
 | 0.1.5 - Jun 23, 2020 [v0.1.5](https://github.com/gertd/go-pluralize/releases/tag/v0.1.5) | 8.0.0 - Mar 14, 2020 [#e507706](https://github.com/blakeembrey/pluralize/commit/e507706be779612c06ebfd6043163e063e791d79)
 | 0.1.2 - Apr 1, 2020 [v0.1.2](https://github.com/gertd/go-pluralize/releases/tag/v0.1.2) | 8.0.0 - Mar 14, 2020 [#e507706](https://github.com/blakeembrey/pluralize/commit/e507706be779612c06ebfd6043163e063e791d79)
@@ -31,7 +32,7 @@ To install the go module:
 
 To lock down a specific the version:
 
-    go get -u github.com/gertd/go-pluralize@0.1.6
+    go get -u github.com/gertd/go-pluralize@0.1.7
 
 Download the sources and binaries from the latest [release](https://github.com/gertd/go-pluralize/releases/latest)
 

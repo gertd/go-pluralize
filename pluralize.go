@@ -9,8 +9,8 @@ import (
 
 // Rule -- pluralize rule expression and replacement value.
 type Rule struct {
-	Expression  *regexp.Regexp
-	Replacement string
+	expression  *regexp.Regexp
+	replacement string
 }
 
 // Client -- pluralize client.
@@ -171,12 +171,12 @@ func (c *Client) interpolate(str string, args []string) string {
 }
 
 func (c *Client) replace(word string, rule Rule) string {
-	return rule.Expression.ReplaceAllStringFunc(word, func(w string) string {
-		match := rule.Expression.FindString(word)
-		index := rule.Expression.FindStringIndex(word)[0]
-		args := rule.Expression.FindAllStringSubmatch(word, -1)[0]
+	return rule.expression.ReplaceAllStringFunc(word, func(w string) string {
+		match := rule.expression.FindString(word)
+		index := rule.expression.FindStringIndex(word)[0]
+		args := rule.expression.FindAllStringSubmatch(word, -1)[0]
 
-		result := c.interpolate(rule.Replacement, args)
+		result := c.interpolate(rule.replacement, args)
 
 		if match == `` {
 			return restoreCase(word[index-1:index], result)
@@ -198,7 +198,7 @@ func (c *Client) sanitizeWord(token string, word string, rules []Rule) string {
 	// Iterate over the sanitization rules and use the first one to match.
 	// NOTE: iterate rules array in reverse order specific => general rules
 	for i := len(rules) - 1; i >= 0; i-- {
-		if rules[i].Expression.MatchString(word) {
+		if rules[i].expression.MatchString(word) {
 			return c.replace(word, rules[i])
 		}
 	}

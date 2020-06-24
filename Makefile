@@ -83,6 +83,16 @@ install:
 		$(MAKE) doinstall B=$${b} P=${GOOS}; 			 	\
 	done 													
 
+.PHONY: dorelease
+dorelease:
+	@echo -e "$(ATTN_COLOR)==> $@ build GOOS=$(P) GOARCH=$(GOARCH) VERSION=$(VERSION) COMMIT=$(COMMIT) DATE=$(DATE) $(NO_COLOR)"
+	@GOOS=$(P) GOARCH=$(GOARCH) GO111MODULE=on go build $(LDFLAGS) -o $(T)/$(P)-$(GOARCH)/$(B)$(if $(findstring $(P),windows),".exe","") $(SRC_DIR)/$(B)
+ifneq ($(P),windows)
+	@chmod +x $(T)/$(P)-$(GOARCH)/$(B)
+endif
+	@echo -e "$(ATTN_COLOR)==> $@ zip $(B)-$(P)-$(GOARCH).zip $(NO_COLOR)"
+	@zip -j $(T)/$(P)-$(GOARCH)/$(B)-$(P)-$(GOARCH).zip $(T)/$(P)-$(GOARCH)/$(B)$(if $(findstring $(P),windows),".exe","") >/dev/null
+
 .PHONY: release
 release: $(REL_DIR)
 	@echo -e "$(ATTN_COLOR)==> $@ $(NO_COLOR)"
@@ -90,7 +100,7 @@ release: $(REL_DIR)
 	do 														\
 		for p in ${PLATFORMS};								\
 		do 													\
-			$(MAKE) dobuild B=$${b} P=$${p} T=${REL_DIR}; 	\
+			$(MAKE) dorelease B=$${b} P=$${p} T=${REL_DIR}; 	\
 		done;												\
 	done 													\
 
