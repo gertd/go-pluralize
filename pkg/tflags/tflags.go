@@ -4,10 +4,10 @@ import (
 	"strings"
 )
 
-// TestCmd -- enum
+// TestCmd -- enum.
 type TestCmd uint8
 
-// TestCmd -- enum constants
+// TestCmd -- enum constants.
 const (
 	TestCmdUnknown TestCmd = 1 << iota
 	TestCmdIsPlural
@@ -17,7 +17,7 @@ const (
 	TestCmdAll = TestCmdIsPlural + TestCmdIsSingular + TestCmdPlural + TestCmdSingular
 )
 
-// TestCmd -- string constants
+// TestCmd -- string constants.
 const (
 	testCmdUnknown    = "Unknown"
 	testCmdIsPlural   = "IsPlural"
@@ -27,7 +27,7 @@ const (
 	testCmdAll        = "All"
 )
 
-// testCmdID -- map enum to string
+// testCmdID -- map enum to string.
 func testCmdID(t TestCmd) string {
 	innerTestCmdID := map[TestCmd]string{
 
@@ -55,7 +55,7 @@ func testCmdID(t TestCmd) string {
 // 	}
 // }
 
-// testCmdName -- map string to enum value
+// testCmdName -- map string to enum value.
 func testCmdName(s string) TestCmd {
 	f := func() func(s string) TestCmd {
 		innerTestCmdName := map[string]TestCmd{
@@ -81,32 +81,32 @@ func testCmdName(s string) TestCmd {
 	return f()(s)
 }
 
-// String -- stringify TestCmd
+// String -- stringify TestCmd.
 func (t TestCmd) String() string {
 	return testCmdID(t)
 }
 
-// Set -- set flag
+// Set -- set flag.
 func (t *TestCmd) Set(flag TestCmd) {
 	*t |= flag
 }
 
-// Clear -- clear flag
+// Clear -- clear flag.
 func (t *TestCmd) Clear(flag TestCmd) {
 	*t &^= flag
 }
 
-// Toggle -- toggle flag state
+// Toggle -- toggle flag state.
 func (t *TestCmd) Toggle(flag TestCmd) {
 	*t ^= flag
 }
 
-// Has -- is flag set?
+// Has -- is flag set?.
 func (t TestCmd) Has(flag TestCmd) bool {
 	return t&flag != 0
 }
 
-// TestCmdString -- convert string reprensentation in to enum value
+// TestCmdString -- convert string reprensentation in to enum value.
 func TestCmdString(s string) TestCmd {
 	return testCmdName(s)
 }

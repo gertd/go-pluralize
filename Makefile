@@ -11,26 +11,18 @@ WARN_COLOR=\033[36;01m
 # yellow
 ATTN_COLOR=\033[33;01m
 
-ROOT_DIR := $(git rev-parse --show-toplevel)
-BIN_DIR  := ./bin
+ROOT_DIR   := $(shell git rev-parse --show-toplevel)
+BIN_DIR    := $(ROOT_DIR)/bin
+REL_DIR    := $(ROOT_DIR)/release
 
 LINTER     := $(BIN_DIR)/golangci-lint
-LINTVERSION:= v1.24.0
-TESTRUNNER := $(GOPATH)/bin/gotestsum
+LINTVERSION:= v1.27.0
 
-GOOS :=
-ifeq ($(OS),Windows_NT)
-	GOOS = windows
-else 
-	UNAME_S := $(shell uname -s)
-	ifeq ($(UNAME_S),Linux)
-		GOOS = linux
-	endif
-	ifeq ($(UNAME_S),Darwin)
-		GOOS = darwin
-	endif
-endif
-GOARCH ?= amd64
+TESTRUNNER := $(BIN_DIR)/gotestsum
+TESTVERSION:= v0.5.0
+
+GOARCH     ?= amd64
+GOOS       ?= $(shell go env GOOS)
 
 VERSION    :=`git describe --tags 2>/dev/null`
 COMMIT     :=`git rev-parse --short HEAD 2>/dev/null`
@@ -56,13 +48,13 @@ build: deps
 	@GOOS=$(GOOS) GOARCH=$(GOARCH) GO111MODULE=on go build $(LDFLAGS) -o $(BIN_DIR)/$(BINARY) ./cmd/pluralize
 
 $(TESTRUNNER):
-	@echo -e "$(ATTN_COLOR)==> get gotestsum test runner  $(NO_COLOR)"
-	@go get -u gotest.tools/gotestsum 
+	@echo -e "$(ATTN_COLOR)==> get $@  $(NO_COLOR)"
+	@GOBIN=$(BIN_DIR) go get -u gotest.tools/gotestsum
 
-.PHONY: test
+.PHONY: test 
 test: $(TESTRUNNER)
-	@echo -e "$(ATTN_COLOR)==> test $(NO_COLOR)"
-	@gotestsum --format short-verbose
+	@echo -e "$(ATTN_COLOR)==> $@ $(NO_COLOR)"
+	@CGO_ENABLED=0 $(BIN_DIR)/gotestsum --format short-verbose -- -count=1 -v $(ROOT_DIR)/...
 
 $(LINTER):
 	@echo -e "$(ATTN_COLOR)==> get linter $(NO_COLOR)"
