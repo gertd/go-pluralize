@@ -7,13 +7,13 @@ import (
 	"strings"
 )
 
-// Rule --
+// Rule -- pluralize rule expression and replacement value.
 type Rule struct {
 	Expression  *regexp.Regexp
 	Replacement string
 }
 
-// Client --
+// Client -- pluralize client.
 type Client struct {
 	pluralRules      []Rule
 	singularRules    []Rule
@@ -23,7 +23,7 @@ type Client struct {
 	interpolateExpr  *regexp.Regexp
 }
 
-// NewClient - pluralization client factory method
+// NewClient - pluralization client factory method.
 func NewClient() *Client {
 	client := Client{}
 	client.init()
@@ -45,7 +45,7 @@ func (c *Client) init() {
 	c.interpolateExpr = regexp.MustCompile(`\$(\d{1,2})`)
 }
 
-// Pluralize -- Pluralize or singularize a word based on the passed in count
+// Pluralize -- Pluralize or singularize a word based on the passed in count.
 // 	word: the word to pluralize
 // 	count: how many of the word exist
 // 	inclusive: whether to prefix with the number (e.g. 3 ducks)
@@ -65,37 +65,37 @@ func (c *Client) Pluralize(word string, count int, inclusive bool) string {
 	return pluralized()(word)
 }
 
-// Plural -- Pluralize a word
+// Plural -- Pluralize a word.
 func (c *Client) Plural(word string) string {
 	return c.replaceWord(c.irregularSingles, c.irregularPlurals, c.pluralRules)(word)
 }
 
-// IsPlural -- Check if a word is plural
+// IsPlural -- Check if a word is plural.
 func (c *Client) IsPlural(word string) bool {
 	return c.checkWord(c.irregularSingles, c.irregularPlurals, c.pluralRules)(word)
 }
 
-// Singular -- Singularize a word
+// Singular -- Singularize a word.
 func (c *Client) Singular(word string) string {
 	return c.replaceWord(c.irregularPlurals, c.irregularSingles, c.singularRules)(word)
 }
 
-// IsSingular -- Check if a word is singular
+// IsSingular -- Check if a word is singular.
 func (c *Client) IsSingular(word string) bool {
 	return c.checkWord(c.irregularPlurals, c.irregularSingles, c.singularRules)(word)
 }
 
-// AddPluralRule -- Add a pluralization rule to the collection
+// AddPluralRule -- Add a pluralization rule to the collection.
 func (c *Client) AddPluralRule(rule string, replacement string) {
 	c.pluralRules = append(c.pluralRules, Rule{sanitizeRule(rule), replacement})
 }
 
-// AddSingularRule -- Add a singularization rule to the collection
+// AddSingularRule -- Add a singularization rule to the collection.
 func (c *Client) AddSingularRule(rule string, replacement string) {
 	c.singularRules = append(c.singularRules, Rule{sanitizeRule(rule), replacement})
 }
 
-// AddUncountableRule -- Add an uncountable word rule
+// AddUncountableRule -- Add an uncountable word rule.
 func (c *Client) AddUncountableRule(word string) {
 	if !isExpr(word) {
 		c.uncountables[strings.ToLower(word)] = true
@@ -106,7 +106,7 @@ func (c *Client) AddUncountableRule(word string) {
 	c.AddSingularRule(word, `$0`)
 }
 
-// AddIrregularRule -- Add an irregular word definition
+// AddIrregularRule -- Add an irregular word definition.
 func (c *Client) AddIrregularRule(single string, plural string) {
 	p := strings.ToLower(plural)
 	s := strings.ToLower(single)
@@ -239,7 +239,7 @@ func restoreCase(word string, token string) string {
 	return strings.ToLower(token)
 }
 
-// isExpr -- helper to detect if string represents an expression by checking first character to be (
+// isExpr -- helper to detect if string represents an expression by checking first character to be `(`.
 func isExpr(s string) bool {
 	return s[:1] == `(`
 }

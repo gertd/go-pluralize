@@ -1,4 +1,4 @@
-package pluralize
+package pluralize //nolint:testpackage
 
 import (
 	"flag"
@@ -7,6 +7,7 @@ import (
 	"testing"
 
 	"github.com/gertd/go-pluralize/pkg/tflags"
+	"github.com/pkg/errors"
 )
 
 type TestEntry struct {
@@ -34,14 +35,14 @@ func TestMain(m *testing.M) {
 	os.Exit(m.Run())
 }
 
-// plogf -- PASSED result log
+// plogf -- PASSED result log.
 func plogf(t *testing.T, format string, a ...interface{}) {
 	if *p.passLog {
 		t.Logf(format, a...)
 	}
 }
 
-// slog -- Summary result log
+// slog -- Summary result log.
 func slog(name string, passed int, failed int, total int) {
 	fmt.Fprintf(os.Stdout, ">>> %s PASSED=%d FAILED=%d OF %d\n",
 		name, passed, failed, total)
@@ -56,7 +57,7 @@ func TestCmd(t *testing.T) {
 	testCmd := tflags.TestCmdString(*p.cmd)
 
 	if testCmd.Has(tflags.TestCmdUnknown) {
-		t.Error(fmt.Errorf("unknown -cmd value %s, valid [All|IsPlural|IsSingular|Plural|Singular]", *p.cmd))
+		t.Error(errors.Errorf("unknown -cmd value %s, valid [All|IsPlural|IsSingular|Plural|Singular]", *p.cmd))
 		return
 	}
 
@@ -260,7 +261,7 @@ func TestPluralize(t *testing.T) {
 	}
 }
 
-// Basic test cases of singular - plural pairs
+// Basic test cases of singular - plural pairs.
 func basicTests() []TestEntry { //nolint:funlen
 	return []TestEntry{
 		// Uncountables.
