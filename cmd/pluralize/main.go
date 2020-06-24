@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	pluralize "github.com/gertd/go-pluralize"
+	"github.com/gertd/go-pluralize"
 	"github.com/gertd/go-pluralize/pkg/tflags"
 	"github.com/gertd/go-pluralize/pkg/version"
 )
