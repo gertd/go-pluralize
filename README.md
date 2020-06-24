@@ -30,7 +30,7 @@ To install the go module:
 
 To lock down a specific the version:
 
-    go get -u github.com/gertd/go-pluralize@0.1.4
+    go get -u github.com/gertd/go-pluralize@0.1.5
 
 Download the sources and binaries from the latest [release](https://github.com/gertd/go-pluralize/releases/latest)
 
