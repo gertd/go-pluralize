@@ -5,11 +5,10 @@ import (
 	"runtime"
 )
 
-// package global var, value set by linker using ldflag -X.
 var (
-	version string
-	date    string //nolint:gochecknoglobals
-	commit  string //nolint:gochecknoglobals
+	ver    string //nolint:gochecknoglobals
+	date   string //nolint:gochecknoglobals
+	commit string //nolint:gochecknoglobals
 )
 
 // Info - version info.
@@ -19,16 +18,16 @@ type Info struct {
 	Commit  string
 }
 
-// GetInfo - get version information.
+// GetInfo - get version stamp information.
 func GetInfo() Info {
 	return Info{
-		Version: version,
+		Version: ver,
 		Date:    date,
 		Commit:  commit,
 	}
 }
 
-// String - version stringifier.
+// String() -- return version info string.
 func (vi Info) String() string {
 	return fmt.Sprintf("%s #%s-%s-%s [%s]",
 		vi.Version,
