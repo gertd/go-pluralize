@@ -266,6 +266,10 @@ func (c *Client) loadIrregularRules() { //nolint:funlen
 		{`has`, `have`},
 		{`this`, `these`},
 		{`that`, `those`},
+		{`my`, `our`},
+		{`its`, `their`},
+		{`his`, `their`},
+		{`her`, `their`},
 		// Words ending in with a consonant and `o`.
 		{`echo`, `echoes`},
 		{`dingo`, `dingoes`},
@@ -302,6 +306,7 @@ func (c *Client) loadIrregularRules() { //nolint:funlen
 		{`pickaxe`, `pickaxes`},
 		{`passerby`, `passersby`},
 		{`sms`, `sms`},
+		{`canvas`, `canvases`},
 	}
 
 	for _, r := range irregularRules {
