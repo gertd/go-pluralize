@@ -305,6 +305,7 @@ func (c *Client) loadIrregularRules() { //nolint:funlen
 		{`groove`, `grooves`},
 		{`pickaxe`, `pickaxes`},
 		{`passerby`, `passersby`},
+		{`canvas`, `canvases`},
 		{`sms`, `sms`},
 		{`canvas`, `canvases`},
 	}

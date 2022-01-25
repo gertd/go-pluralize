@@ -13,10 +13,11 @@ Pluralize and singularize any word
 
 # Version mapping
 
-The latest go-pluralize version is compatible with [pluralize](https://www.npmjs.com/package/pluralize) version 8.0.0 commit [#e507706](https://github.com/blakeembrey/pluralize/commit/e507706be779612c06ebfd6043163e063e791d79)
+The latest go-pluralize version is compatible with [pluralize](https://www.npmjs.com/package/pluralize) version 8.0.0 commit [#36f03cd](https://github.com/blakeembrey/pluralize/commit/36f03cd2d573fa6d23e12e1529fa4627e2af74b4)
 
 | go-pluralize version  | NPM Pluralize Package version |
 | ------------- | ------------- |
+| 0.2.0 - Jan 25, 2022 [v0.2.0](https://github.com/gertd/go-pluralize/releases/tag/v0.2.0) | 8.0.0 - Oct 6, 2021 [#36f03cd](https://github.com/blakeembrey/pluralize/commit/36f03cd2d573fa6d23e12e1529fa4627e2af74b4)
 | 0.1.7 - Jun 23, 2020 [v0.1.7](https://github.com/gertd/go-pluralize/releases/tag/v0.1.7) | 8.0.0 - Mar 14, 2020 [#e507706](https://github.com/blakeembrey/pluralize/commit/e507706be779612c06ebfd6043163e063e791d79)
 | 0.1.2 - Apr 1, 2020 [v0.1.2](https://github.com/gertd/go-pluralize/releases/tag/v0.1.2) | 8.0.0 - Mar 14, 2020 [#e507706](https://github.com/blakeembrey/pluralize/commit/e507706be779612c06ebfd6043163e063e791d79)
 | 0.1.1 - Sep 15, 2019 [v0.1.1](https://github.com/gertd/go-pluralize/releases/tag/v0.1.1) | 8.0.0 - Aug 27, 2019 [#abb3991](https://github.com/blakeembrey/pluralize/commit/abb399111aedd1d62dd418d7e0217d85f5bf22c9)
