@@ -7,7 +7,6 @@ import (
 	"testing"
 
 	"github.com/gertd/go-pluralize/pkg/tflags"
-	"github.com/pkg/errors"
 )
 
 type TestEntry struct {
@@ -57,7 +56,7 @@ func TestCmd(t *testing.T) {
 	testCmd := tflags.TestCmdString(*p.cmd)
 
 	if testCmd.Has(tflags.TestCmdUnknown) {
-		t.Error(errors.Errorf("unknown -cmd value %s, valid [All|IsPlural|IsSingular|Plural|Singular]", *p.cmd))
+		t.Error(fmt.Errorf("unknown -cmd value %s, valid [All|IsPlural|IsSingular|Plural|Singular]", *p.cmd))
 		return
 	}
 
