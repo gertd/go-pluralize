@@ -938,6 +938,7 @@ func singularTests() []TestEntry {
 		{`nucleus`, `nucleuses`},
 		{`bureau`, `bureaux`},
 		{`seraph`, `seraphs`},
+		{`cache`, `caches`},
 	}
 }
 
