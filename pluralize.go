@@ -307,6 +307,7 @@ func (c *Client) loadIrregularRules() { //nolint:funlen
 		{`passerby`, `passersby`},
 		{`canvas`, `canvases`},
 		{`sms`, `sms`},
+		{`cache`, `caches`},
 	}
 
 	for _, r := range irregularRules {
